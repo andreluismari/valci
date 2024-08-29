@@ -12,17 +12,17 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class App {
-    public static void main( String[] args ){
+    public static void main(String[] args) {
         try {
             HttpServer servidor = HttpServer.create(
-                    new InetSocketAddress(8080),0
+                    new InetSocketAddress(8080), 0
             );
 
             servidor.createContext("/helloWorld",
                     new HelloWorldHandler());
 
             Connection connection = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/your_db", "root", "admin1git "
+                    "jdbc:mysql://localhost:3306/your_db", "root", "admin1"
             );
 
             ProductTypeDAO productTypeDAO = new ProductTypeDAO(connection);
@@ -44,6 +44,5 @@ public class App {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
     }
 }
