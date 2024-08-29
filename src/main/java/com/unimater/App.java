@@ -22,7 +22,7 @@ public class App {
                     new HelloWorldHandler());
 
             Connection connection = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/your_db", "root", "root"
+                    "jdbc:mysql://localhost:3306/your_db", "root", "admin1"
             );
 
             ProductTypeDAO productTypeDAO = new ProductTypeDAO(connection);

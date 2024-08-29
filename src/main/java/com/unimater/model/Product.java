@@ -1,6 +1,10 @@
 package com.unimater.model;
 
-public class Product {
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class Product implements Entity {
 
     private int id;
     private ProductType productType;
@@ -14,6 +18,9 @@ public class Product {
         this.value = value;
     }
 
+    public Product() {}
+
+    @Override
     public int getId() {
         return id;
     }
@@ -34,4 +41,20 @@ public class Product {
         this.id = id;
     }
 
+    @Override
+    public Entity constructFromResultSet(ResultSet rs) throws SQLException {
+        this.id = rs.getInt("id");
+        this.productType = new ProductType(rs.getInt("product_type_id"), ""); // Placeholder for actual lookup
+        this.description = rs.getString("description");
+        this.value = rs.getDouble("value");
+        return this;
+    }
+
+    @Override
+    public PreparedStatement prepareStatement(PreparedStatement preparedStatement) throws SQLException {
+        preparedStatement.setInt(1, productType.getId());
+        preparedStatement.setString(2, description);
+        preparedStatement.setDouble(3, value);
+        return preparedStatement;
+    }
 }

@@ -1,9 +1,12 @@
 package com.unimater.model;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.List;
 
-public class Sale {
+public class Sale implements Entity {
 
     private int id;
     private List<SaleItem> saleItems;
@@ -15,6 +18,9 @@ public class Sale {
         this.insertAt = insertAt;
     }
 
+    public Sale() {}
+
+    @Override
     public int getId() {
         return id;
     }
@@ -37,5 +43,18 @@ public class Sale {
 
     public void setInsertAt(Timestamp insertAt) {
         this.insertAt = insertAt;
+    }
+
+    @Override
+    public Entity constructFromResultSet(ResultSet rs) throws SQLException {
+        this.id = rs.getInt("id");
+        this.insertAt = rs.getTimestamp("insert_at");
+        return this;
+    }
+
+    @Override
+    public PreparedStatement prepareStatement(PreparedStatement preparedStatement) throws SQLException {
+        preparedStatement.setTimestamp(1, insertAt);
+        return preparedStatement;
     }
 }
