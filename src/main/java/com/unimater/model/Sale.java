@@ -18,27 +18,29 @@ public class Sale implements Entity {
         this.insertAt = insertAt;
     }
 
-    public Sale() {}
+    public Sale() {
+    }
 
     @Override
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public List<SaleItem> getSaleItems() {
         return saleItems;
     }
 
-    public void setSaleItems(List<SaleItem> saleItems) {
-        this.saleItems = saleItems;
-    }
-
     public Timestamp getInsertAt() {
         return insertAt;
+    }
+
+    // Adicionando os setters
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setSaleItems(List<SaleItem> saleItems) {
+        this.saleItems = saleItems;
     }
 
     public void setInsertAt(Timestamp insertAt) {
@@ -56,5 +58,13 @@ public class Sale implements Entity {
     public PreparedStatement prepareStatement(PreparedStatement preparedStatement) throws SQLException {
         preparedStatement.setTimestamp(1, insertAt);
         return preparedStatement;
+    }
+
+    @Override
+    public String toString() {
+        return "Sale{" +
+                "id=" + id +
+                ", insertAt=" + insertAt +
+                '}';
     }
 }

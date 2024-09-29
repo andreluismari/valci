@@ -10,7 +10,6 @@ public class ProductType implements Entity {
     private String description;
 
     public ProductType(ResultSet rs) throws SQLException {
-        super();
         this.id = rs.getInt("id");
         this.description = rs.getString("description");
     }
@@ -21,7 +20,6 @@ public class ProductType implements Entity {
     }
 
     public ProductType() {
-
     }
 
     public int getId() {
@@ -32,9 +30,16 @@ public class ProductType implements Entity {
         return description;
     }
 
+    // Adicionando o setter para 'description'
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
-    public Entity constructFromResultSet(ResultSet rs) throws SQLException{
-        return new ProductType(rs);
+    public Entity constructFromResultSet(ResultSet rs) throws SQLException {
+        this.id = rs.getInt("id");
+        this.description = rs.getString("description");
+        return this;
     }
 
     @Override
